@@ -227,6 +227,7 @@ header.site-header.suite-header { grid-template-columns: auto minmax(0, 1fr) aut
 
 /* An activity icon sits inside the title, before the text, so every title starts at the same x. */
 .suite-chrome-activity h1 .activity-icon { display: inline-block; width: 1.4em; height: 1.4em; vertical-align: -0.25em; margin-inline-end: 0.2em; }
+
 .suite-chrome-activity h1 {
   margin: 0;
   flex: 1 1 0;
