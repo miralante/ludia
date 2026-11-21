@@ -15,10 +15,9 @@ Always attempt the relevant browser test; if the global CLI or browsers are
 unavailable, report that blocker and continue with the other checks.
 
 Ludia is an extensible catalogue of eight games with rules, exercises and matches.
-It preserves Enroca's complete chess curriculum and engine. See
-`doc/en/adding-games.md` for the new game contract. The public name is Ludia;
-the repository and deployment identifiers keep their existing names. Storage uses the
-`ludia:` prefix; `assets/js/core.js` moves any old `enroca:` keys to it once.
+It includes the complete chess curriculum and engine. See
+`doc/en/adding-games.md` for the new game contract. The public name, the repository
+and the deployment identifiers are all Ludia. Storage uses the `ludia:` prefix.
 It is an independent sibling in Apptonomia. Read `doc/en/spec.md` (Spanish mirror
 `doc/es/spec.md`) for product decisions and `doc/en/technical.md` (`doc/es/tecnico.md`)
 for architecture. Follow the suite's `../apptonomia/doc/en/guia-de-cumplimiento.md`

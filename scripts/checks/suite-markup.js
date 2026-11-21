@@ -184,10 +184,8 @@ function pageProblems(file, appRoot, appName, isActivity = () => false) {
 }
 
 /* La identidad de la app: la declara ella misma (data-suite-name), no la carpeta
-   en la que está desplegada. El repo miralante/enroca es la app Ludia, y el CI
-   lo despliega como `enroca` mientras el espacio de trabajo lo llama `ludia`:
-   con el nombre de la carpeta, sus exenciones (legal/ y refresh.html, que son
-   stubs de redirección) no se aplicaban y el lint los daba por buenos páginas. */
+   en la que está desplegada: con el nombre de la carpeta, sus exenciones (legal/ y
+   refresh.html, que son stubs de redirección) no se aplicaban y el lint los daba por buenos páginas. */
 function appId(appRoot) {
   try {
     const html = fs.readFileSync(path.join(appRoot, 'index.html'), 'utf8');

@@ -9,10 +9,8 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE_PATH || 'playwright')
 const ROOT = path.resolve(__dirname, '..');
 
 /* La app se identifica por el nombre que ella misma declara (data-suite-name),
-   no por el nombre de la carpeta en la que está desplegada: el repo
-   miralante/enroca es la app Ludia, y el CI la despliega como `enroca` mientras
-   que el espacio de trabajo la llama `ludia`. Con el nombre de la carpeta, el
-   crawler se tomaba por otra app y recorría sus ramas equivocadas. */
+   no por el nombre de la carpeta en la que está desplegada: con el nombre de la carpeta,
+   el crawler se tomaba por otra app y recorría sus ramas equivocadas. */
 const APP = (function () {
   try {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
@@ -36,32 +34,6 @@ const MIME_TYPES = {
   '.woff2': 'font/woff2', '.mp3': 'audio/mpeg', '.wav': 'audio/wav',
 };
 const EXTRA_HASH_ROUTES = {
-  /* Ludia se renombró desde Enroca y conserva el mismo juego de tablas,
-     así que las dos claves listan exactamente las mismas rutas. */
-  enroca: [
-    '#home', '#settings', '#learn', '#exercise/all', '#minigames',
-    '#play', '#privacy',
-    '#minigame/rook-flag', '#minigame/bishop-flag', '#minigame/knight-flag',
-    '#minigame/pawn-flag', '#minigame/rook-path', '#minigame/bishop-path',
-    '#minigame/knight-path', '#minigame/pawn-capture', '#minigame/king-step',
-    '#minigame/rook-shield', '#minigame/bishop-capture', '#minigame/choose-safety',
-    '#ludia/tic-tac-toe', '#ludia/connect-four', '#ludia/battleship',
-    '#ludia/sudoku', '#ludia/tetris', '#ludia/domino', '#ludia/checkers',
-    '#ludia/tic-tac-toe/rules/0', '#ludia/tic-tac-toe/exercises/0',
-    '#ludia/tic-tac-toe/play', '#ludia/tic-tac-toe/match',
-    '#ludia/connect-four/rules/0', '#ludia/connect-four/exercises/0',
-    '#ludia/connect-four/play', '#ludia/connect-four/match',
-    '#ludia/battleship/rules/0', '#ludia/battleship/exercises/0',
-    '#ludia/battleship/play', '#ludia/battleship/match',
-    '#ludia/sudoku/rules/0', '#ludia/sudoku/exercises/0',
-    '#ludia/sudoku/play', '#ludia/sudoku/match',
-    '#ludia/tetris/rules/0', '#ludia/tetris/exercises/0',
-    '#ludia/tetris/play', '#ludia/tetris/match',
-    '#ludia/domino/rules/0', '#ludia/domino/exercises/0',
-    '#ludia/domino/play', '#ludia/domino/match',
-    '#ludia/checkers/rules/0', '#ludia/checkers/exercises/0',
-    '#ludia/checkers/play', '#ludia/checkers/match'
-  ],
   ludia: [
     '#home', '#settings', '#learn', '#exercise/all', '#minigames',
     '#play', '#privacy',
@@ -2031,8 +2003,15 @@ async function exerciseRoutimeSafeChat(page) {
       await page.waitForTimeout(1400);
       continue;
     }
-    await page.locator('#chatOpciones button:visible').first()
-      .waitFor({ state: 'visible', timeout: NAV_TIMEOUT });
+    /* La última acción del chat puede abrir directamente la regla de cierre:
+       entonces #chatOpciones se queda vacío y no llega ningún botón. Se espera
+       lo que ocurra primero: un botón nuevo o la pantalla de cierre. */
+    await Promise.race([
+      page.locator('#chatOpciones button:visible').first()
+        .waitFor({ state: 'visible', timeout: NAV_TIMEOUT }).catch(() => null),
+      page.locator('#reglaFinal:not(.hidden)')
+        .waitFor({ state: 'visible', timeout: NAV_TIMEOUT }).catch(() => null),
+    ]);
   }
 
   assert.ok(validatedSocraticPause, 'El smoke no comprobó la pausa socrática de Chat Seguro');

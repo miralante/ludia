@@ -13,7 +13,7 @@ Revisión local: 12 de septiembre de 2026.
   inicial, sonidos opcionales y cancelación inmediata al silenciar.
 - Retos con banderas, obstáculos, capturas, jaque, deshacer, pistas tras desvíos,
   vuelta desde el ejemplo y alternativa por listas que se abre solo a petición.
-- Partidas locales y contra Enroca: movimientos legales, deshacer, reanudación,
+- Partidas locales y contra Ludia: movimientos legales, deshacer, reanudación,
   cancelación del turno pendiente, coronación y cancelación del diálogo.
 - Teclado y foco; ES/EN, texto grande, contraste y nombres de piezas sin desbordamiento
   en 320, 375, 768 y 1280 px. Coordenadas grandes en la localización de casillas.

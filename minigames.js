@@ -2,7 +2,7 @@
 (function (root, factory) {
   'use strict';
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./chess.js'));
-  else root.EnrocaMini = factory(root.EnrocaChess);
+  else root.LudiaMini = factory(root.LudiaChess);
 }(typeof globalThis !== 'undefined' ? globalThis : this, function (C) {
   'use strict';
   const catalog = [

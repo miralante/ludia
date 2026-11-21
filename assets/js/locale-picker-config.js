@@ -9,8 +9,7 @@ window.LocalePickerConfig = {
   /* The language selector lives INSIDE the gear drawer, as its first row,
      and the gear stays alone in the header. */
   languageInDrawer: true,
-  /* Ludia's core.js defines STORAGE_PREFIX = 'ludia:' (legacy name from when
-     the app was called Enroca), so the locale lives at 'ludia:locale'. */
+  /* core.js defines STORAGE_PREFIX = 'ludia:', so the locale lives at 'ludia:locale'. */
   storageKey: 'ludia:locale',
   /* Strings live inline in strings.*.js: skip HEAD discovery. */
   path: null,

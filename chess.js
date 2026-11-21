@@ -1,8 +1,8 @@
-/* Enroca chess rules. No browser, network or storage dependencies. */
+/* Ludia chess rules. No browser, network or storage dependencies. */
 (function (root, factory) {
   'use strict';
   if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.EnrocaChess = factory();
+  else root.LudiaChess = factory();
 }(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
   const START = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';

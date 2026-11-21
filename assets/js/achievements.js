@@ -1,7 +1,7 @@
 /* Achievements: catalog, unlock logic and badge grid for the "About the app" view (#about).
-   Unlocked achievements are stored as { id: timestamp } under the 'enroca:achievements' key.
-   Most achievements are derived from progress the app already saves ('enroca:progress' for
-   chess and 'enroca:ludia-progress' for the other games), so sync() gives existing players
+   Unlocked achievements are stored as { id: timestamp } under the 'ludia:achievements' key.
+   Most achievements are derived from progress the app already saves ('ludia:progress' for
+   chess and 'ludia:ludia-progress' for the other games), so sync() gives existing players
    credit retroactively. The streak and wins are noticed at runtime by app.js and ludia.js. */
 (function () {
   'use strict';
@@ -46,7 +46,7 @@
     if (total >= 10) achieve('tenExercises');
     const catalog = (window.LudiaGames?.catalog || []).filter(g => g.lessons).map(g => g.id).concat('chess');
     if (isObject(games) && catalog.length > 1 && catalog.every(id => Array.isArray(games[id]?.matches) && games[id].matches.includes('finished'))) achieve('allGames');
-    const chessExercises = (window.EnrocaLessons || []).flatMap(l => l.exercises);
+    const chessExercises = (window.LudiaLessons || []).flatMap(l => l.exercises);
     const chessDone = chessExercises.length && isObject(chess) && isObject(chess.exercises) && chessExercises.every(q => SOLVED.includes(chess.exercises[q.id]));
     const gameDone = (window.LudiaGames?.catalog || []).some(g => g.lessons && Array.isArray(games?.[g.id]?.exercises) && g.lessons.every(l => games[g.id].exercises.includes(l.id)));
     if (chessDone || gameDone) achieve('completeGame');

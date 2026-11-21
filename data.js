@@ -513,5 +513,5 @@
   }
 ];
   if (typeof module === 'object' && module.exports) module.exports = lessons;
-  else root.EnrocaLessons = lessons;
+  else root.LudiaLessons = lessons;
 }(typeof globalThis !== 'undefined' ? globalThis : this));
