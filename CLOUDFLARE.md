@@ -6,7 +6,7 @@ https://ludia.apptonomia.uk/ (live since 2026-09-12).
 
 1. Run `node scripts/check.js` and `node scripts/check-version-bump.js`.
 2. Review `.assetsignore`, `_headers`, `wrangler.toml` and the exact source diff.
-3. Repository: https://github.com/miralante/enroca (public, branch `main`).
+3. Repository: https://github.com/miralante/ludia (public, branch `main`).
    Initial publication and deployment were authorized on 2026-09-12.
 4. This app currently uses manual Wrangler deployments. GitHub Actions validates
    commits but does not deploy. Workers Builds is not connected; future pushes to
