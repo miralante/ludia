@@ -25,8 +25,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --no-save --no-audit --no-fund playwright
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:ui
+      - name: Install UI test dependencies
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run Playwright spec suite
+        run: npm run test:ui
+      - name: Run the UI crawler
+        run: npm run test:crawl
       - run: npm run test:sw
       - run: npm run test:sw-redirects

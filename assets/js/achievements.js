@@ -72,7 +72,7 @@
     return LIST.map(a => {
       const on = !!done[a.id];
       const date = on ? new Date(done[a.id]).toLocaleDateString(i18n.locale) : '';
-      return `<li class="achievement-badge ${on ? 'unlocked' : 'locked'}"><span class="achievement-badge-icon" aria-hidden="true">${a.icon}</span><span class="achievement-badge-name">${esc(i18n.t('achievement.' + a.id))}</span><span class="achievement-badge-desc">${esc(i18n.t('achievement.' + a.id + '.desc'))}</span><span class="achievement-badge-status">${esc(on ? i18n.t('achievement.unlockedAt', { date }) : i18n.t('achievement.locked'))}</span></li>`;
+      return `<li class="achievement-badge ${on ? 'unlocked' : 'locked'}"><span class="achievement-badge-icon" aria-hidden="true">${a.icon}</span><span class="achievement-badge-name">${esc(i18n.t('achievement.' + a.id + '.text'))}</span><span class="achievement-badge-desc">${esc(i18n.t('achievement.' + a.id + '.desc'))}</span><span class="achievement-badge-status">${esc(on ? i18n.t('achievement.unlockedAt', { date }) : i18n.t('achievement.locked'))}</span></li>`;
     }).join('');
   }
 

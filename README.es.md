@@ -31,7 +31,8 @@ la primera visita servida.
 ## 🚀 Pruébalo en vivo
 
 Abre [index.html](index.html), o ejecuta `node scripts/serve.js` y visita
-[la vista local](http://127.0.0.1:8099/). No hay instalación ni compilación.
+[la vista local](http://127.0.0.1:8080/) — `node scripts/serve.js <puerto>` sirve
+la app en otro puerto. No hay instalación ni compilación.
 La carpeta, la configuración de alojamiento existente y las claves de guardado
 conservan sus identificadores anteriores para mantener el progreso de ajedrez.
 La publicación se realiza por separado.

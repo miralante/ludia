@@ -2,7 +2,7 @@
    registration scope. The server copy wins while online; the cache answers
    only when the network is unreachable. */
 'use strict';
-var VERSION = 'ludia-v55';
+var VERSION = 'ludia-v57';
 var FILES = [
   "./",
   "./app.js",
@@ -11,6 +11,7 @@ var FILES = [
   "./minigames.js",
   "./strings.es.js",
   "./strings.en.js",
+  "./assets/js/i18n.js",
   "./assets/js/core.js",
   "./assets/js/locale-picker.js",
   /* External scripts that used to be inline <script> blocks. The CSP is

@@ -23,7 +23,16 @@ for (const file of files) {
 const required = ['AGENTS.md', 'CLAUDE.md', 'README.md', 'README.es.md', 'LICENSE', 'CONTRIBUTING.md', 'CONTRIBUTING.es.md', 'CODE_OF_CONDUCT.md', 'CODE_OF_CONDUCT.es.md', 'SECURITY.md', 'SECURITY.es.md', 'CLOUDFLARE.md', '_headers', '.assetsignore', 'wrangler.toml', '404.html', 'index.html', 'app.js', 'data.js', 'chess.js', 'minigames.js', 'manifest.json', 'sw.js', 'scripts/check-version-bump.js', '.github/workflows/validate.yml', 'doc/en/index.md', 'doc/es/indice.md', 'llms.txt', 'robots.txt', 'sitemap.xml'];
 required.forEach(file => check(exists(file), 'Missing ' + file));
 const dictionaries = {};
-for (const lang of ['es', 'en']) vm.runInNewContext(read('strings.' + lang + '.js'), { window: { App: { i18n: { register(locale, data) { dictionaries[locale] = data; } } } } });
+/* strings files register nested tables; the checks work on dotted keys. */
+function flatten(obj, prefix, out) {
+  out = out || {}; prefix = prefix || '';
+  for (const [k, v] of Object.entries(obj)) {
+    const key = prefix ? prefix + '.' + k : k;
+    if (v && typeof v === 'object' && !Array.isArray(v)) flatten(v, key, out); else out[key] = v;
+  }
+  return out;
+}
+for (const lang of ['es', 'en']) vm.runInNewContext(read('strings.' + lang + '.js'), { window: { App: { i18n: { register(data, locale) { dictionaries[locale] = flatten(data); } } } } });
 const keys = Object.keys(dictionaries.es).sort();
 check(JSON.stringify(keys) === JSON.stringify(Object.keys(dictionaries.en).sort()), 'ES/EN key parity');
 for (const key of keys) {
@@ -40,7 +49,7 @@ for (const lesson of lessons) {
   for (const [square, p] of Object.entries(lesson.pos)) check(/^[a-h][1-8]$/.test(square) && /^[prnbqkPRNBQK]$/.test(p), 'Invalid diagram ' + lesson.id);
   for (const q of lesson.exercises) {
     check(!ids.has(q.id), 'Duplicate exercise ' + q.id); ids.add(q.id);
-    check(keys.includes(q.key) && keys.includes(q.key + '.hint'), 'Missing exercise copy ' + q.id);
+    check(keys.includes(q.key + '.text') && keys.includes(q.key + '.hint'), 'Missing exercise copy ' + q.id);
     if (q.type === 'choice') {
       check(q.answer >= 0 && q.answer < q.options, 'Invalid correct answer ' + q.id);
       for (let i = 0; i < q.options; i++) check(keys.includes(q.key + '.a.' + i), 'Missing option ' + q.id);

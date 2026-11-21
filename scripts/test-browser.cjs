@@ -5,7 +5,7 @@ const path = require('node:path'), fs = require('node:fs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE_PATH || 'playwright');
 const lessons = require('../data.js');
 const C = require('../chess.js');
-const url = process.env.LUDIA_TEST_URL || 'http://127.0.0.1:8099/';
+const url = process.env.LUDIA_TEST_URL || 'http://127.0.0.1:8080/';
 // Language, text size and contrast now live in the gear drawer (the shared
 // accessibility component), so the browser checks drive it from there.
 async function setGear(page, { lang, size, contrast } = {}) {
@@ -54,7 +54,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
     assert.equal(await act('next-exercise').count(), 0);
     await act('exercise-hint').click(); await clickSquare('a1');
     assert.equal((await stored('progress')).exercises['board-a1'], 'supported');
-    assert.equal(await page.locator('.feedback').innerText(), '✓ ¡Bien!');
+    assert.equal(await page.locator('.feedback').innerText(), 'âœ“ Â¡Bien!');
     await act('next-exercise').click();
     await act('review-lesson').click(); await act('return-exercise').click(); await page.waitForFunction(() => document.querySelector('.lesson-instruction')?.textContent === 'Toca c3.');
     assert.equal(await page.locator('.lesson-instruction').innerText(), 'Toca c3.');
@@ -62,7 +62,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
     await clickSquare('h1'); await act('next-exercise').click();
     await page.locator('.complete').waitFor();
     assert.ok((await stored('progress')).lessons.includes('board'));
-    console.log('✓ Continuous topic: presentation, locating squares, hints and return');
+    console.log('âœ“ Continuous topic: presentation, locating squares, hints and return');
     for (const lesson of lessons) {
       await go('lesson/' + lesson.id + '/0');
       const topic = await page.locator('main h1').innerText();
@@ -79,13 +79,13 @@ async function setGear(page, { lang, size, contrast } = {}) {
     assert.equal(Object.keys((await stored('progress')).exercises).length, 29);
     assert.equal((await stored('progress')).exercises['board-a1'], 'independent');
     assert.equal(await page.evaluate(() => App.sound.context), null);
-    console.log('✓ All 14 topics / 29 tasks complete; silence by default');
+    console.log('âœ“ All 14 topics / 29 tasks complete; silence by default');
     await go('settings'); await page.locator('[data-setting="sounds"]').check();
     await page.waitForFunction(() => App.sound.context !== null);
     await page.locator('[data-setting="sounds"]').uncheck();
     assert.equal(await page.evaluate(() => App.sound.active.size), 0);
     assert.equal((await stored('settings')).sounds, false);
-    console.log('✓ Optional game sounds and immediate mute');
+    console.log('âœ“ Optional game sounds and immediate mute');
     await go('play'); await page.locator('input[value="full"]').check(); await page.locator('input[value="local"]').check();
     await page.locator('#game-setup button[type="submit"]').click(); await page.locator('.board[role="grid"]').waitFor();
     await clickSquare('e2'); assert.equal(await page.locator('.destination').count(), 2);
@@ -100,12 +100,12 @@ async function setGear(page, { lang, size, contrast } = {}) {
     await page.keyboard.press('Escape'); assert.equal(await page.locator('.square.selected').count(), 0);
     await page.locator('.skip-link').focus(); await page.keyboard.press('Enter');
     assert.equal(new URL(page.url()).hash, '#game');
-    console.log('✓ Legal/illegal moves, two players, resume, undo and board keyboard');
+    console.log('âœ“ Legal/illegal moves, two players, resume, undo and board keyboard');
     await page.locator('.list-controls summary').click();
     await page.locator('[data-list-from]').selectOption(String(C.index('e7')));
     await page.locator('[data-list-to]').selectOption(String(C.index('e5')));
     await act('list-move').click(); assert.equal((await stored('game')).moves.length, 2);
-    console.log('✓ Large-control alternative can play a move');
+    console.log('âœ“ Large-control alternative can play a move');
     await go('play'); await page.locator('input[value="full"]').check();
     await page.locator('#game-setup button[type="submit"]').click();
     await act('close-dialog').click(); assert.equal((await stored('game')).moves.length, 2);
@@ -118,7 +118,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
     await clickSquare('e2'); await clickSquare('e4'); await page.locator('a[data-nav="home"]').click();
     await page.waitForTimeout(850); assert.equal((await stored('game')).moves.length, 1);
     await go('game'); await page.waitForFunction(() => JSON.parse(localStorage.getItem('ludia:game')).moves.length === 2);
-    console.log('✓ Computer move, pair undo, pending-turn cancellation and resume');
+    console.log('âœ“ Computer move, pair undo, pending-turn cancellation and resume');
     // Restore only a legal history to exercise the promotion modal.
     const pairs = [['d2','d4'],['e8','f8'],['d4','d5'],['f8','g8'],['d5','d6'],['g8','f8'],['d6','e7'],['f8','g8']];
     let state = C.fromFEN(C.MINI); const moves = [];
@@ -129,7 +129,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
     await page.keyboard.press('Escape'); assert.equal((await stored('game')).moves.length, 8);
     await clickSquare('e8'); await page.locator('[data-promotion="n"]').click();
     assert.equal((await stored('game')).moves.at(-1).promotion, 'n');
-    console.log('✓ Explicit promotion, cancel and underpromotion');
+    console.log('âœ“ Explicit promotion, cancel and underpromotion');
     // Responsive checks include both languages and larger text on key screens.
     for (const lang of ['es', 'en']) {
       await go('settings'); await setGear(page, { lang, size: 'large', contrast: true });
@@ -146,7 +146,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
         }
       }
     }
-    console.log('✓ ES/EN + large text + contrast + names at 320/375/768/1280px');
+    console.log('âœ“ ES/EN + large text + contrast + names at 320/375/768/1280px');
     await go('settings'); await setGear(page, { lang: 'es', size: 'regular', contrast: false }); await page.locator('[data-setting="names"]').uncheck();
     if (captures) { await go('game'); await page.screenshot({ path: path.join(captures, 'game-desktop.png'), fullPage: true }); await page.setViewportSize({ width:375,height:900 }); await go('home'); await page.screenshot({ path: path.join(captures,'home-mobile.png'),fullPage:true }); }
     await page.evaluate(() => localStorage.setItem('another-app:keep', 'yes'));
@@ -155,7 +155,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
     await act('delete-data').click(); await page.locator('#confirm-action').click();
     assert.equal(await stored('progress'), null); assert.equal(await stored('game'), null);
     assert.equal(await page.evaluate(() => localStorage.getItem('another-app:keep')), 'yes');
-    console.log('✓ Confirmed reset leaves other apps intact');
+    console.log('âœ“ Confirmed reset leaves other apps intact');
     await page.waitForFunction(async () => (await navigator.serviceWorker.getRegistration())?.active, null, { timeout: 15000 });
     await page.reload(); await page.waitForFunction(() => !!navigator.serviceWorker.controller);
     const cacheCount = await page.evaluate(async () => { const name = (await caches.keys()).find(k => k.startsWith('ludia-v')); return (await (await caches.open(name)).keys()).length; });
@@ -166,7 +166,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
     await context.setOffline(false);
     assert.equal(external.length, 0, 'External runtime requests: ' + external.join(', '));
     assert.deepEqual(errors, []);
-    console.log('✓ Offline lessons/game, complete precache, no external runtime requests/errors');
+    console.log('âœ“ Offline lessons/game, complete precache, no external runtime requests/errors');
     const blocked = await browser.newContext({ locale:'es-ES' });
     await blocked.addInitScript(() => { Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Blocked', 'SecurityError'); } }); });
     const blockedPage = await blocked.newPage(); await blockedPage.goto(url + '#play');
@@ -180,6 +180,6 @@ async function setGear(page, { lang, size, contrast } = {}) {
     const direct = await browser.newPage(); await direct.goto('file:///' + path.resolve(__dirname, '../index.html').replace(/\\/g, '/'));
     await direct.locator('.game-card').first().waitFor(); await direct.locator('.game-card[href="#ludia/chess"]').click(); await direct.locator('.phase-card[href="#play"]').click();
     await direct.locator('#game-setup button[type="submit"]').click(); await direct.locator('.board').waitFor();
-    console.log('✓ Blocked/corrupt storage and direct-file use');
+    console.log('âœ“ Blocked/corrupt storage and direct-file use');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

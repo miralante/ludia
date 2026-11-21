@@ -96,7 +96,7 @@ anuncios breves. Revisar lector de pantalla real con personas además de pruebas
 caché/disco, términos públicos, configuración y pruebas de reglas y lecciones.
 `node scripts/test-browser.cjs` es QA opcional con Playwright previamente disponible
 por `PLAYWRIGHT_MODULE_PATH`; no es dependencia del producto ni requiere instalar
-paquetes en este repositorio. Servir el sitio en 127.0.0.1:8099 antes de ejecutarlo.
+paquetes en este repositorio. Servir el sitio en 127.0.0.1:8080 antes de ejecutarlo.
 
 Cambios de metadatos: editar app.config.json y ejecutar scripts/build-head.js y
 scripts/build-llms-txt.js. No es un build para ejecutar la app. Ver CLOUDFLARE.md.

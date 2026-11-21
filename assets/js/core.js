@@ -16,8 +16,6 @@
       });
     } catch (_) { /* storage unavailable: nothing to move */ }
   })();
-  const dictionaries = {};
-  let locale = 'es';
   const storage = {
     available: true,
     read(key, fallback) {
@@ -33,15 +31,6 @@
         Object.keys(localStorage).filter(k => k.startsWith(STORAGE_PREFIX)).forEach(k => localStorage.removeItem(k));
         return true;
       } catch (_) { this.available = false; return false; }
-    }
-  };
-  const i18n = {
-    register(lang, strings) { dictionaries[lang] = strings; },
-    set(lang) { locale = lang === 'en' ? 'en' : 'es'; document.documentElement.lang = locale; },
-    get locale() { return locale; },
-    t(key, params = {}) {
-      const source = (dictionaries[locale] || {})[key] || (dictionaries.es || {})[key] || key;
-      return source.replace(/\{(\w+)\}/g, (_, k) => params[k] === undefined ? '{' + k + '}' : String(params[k]));
     }
   };
   const sound = {
@@ -85,5 +74,6 @@
       } catch (_) { /* Sound is optional; a blocked audio device never prevents play. */ }
     }
   };
-  window.App = { STORAGE_PREFIX, i18n, storage, sound };
+  /* i18n is set by assets/js/i18n.js (loaded first); this file adds its parts. */
+  window.App = Object.assign(window.App || {}, { STORAGE_PREFIX, storage, sound });
 }());

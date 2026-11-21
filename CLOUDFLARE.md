@@ -25,8 +25,7 @@ https://ludia.apptonomia.uk/ (live since 2026-09-12).
 `sw.js` VERSION starts at `ludia-v1`. Bump it for every release changing a
 precache entry. Install fetches with cache:reload. A new worker waits for old tabs
 rather than replacing code during a game. Activation deletes only older caches
-of its own scope (`ludia-v*`, and the legacy `enroca-v*`). HTML/CSS/JS revalidate at the HTTP layer; only unchanged font
-assets are immutable. No long-lived immutable application URLs without versioning.
+of its own scope (`ludia-v*`, and the legacy `enroca-v*`). HTML, CSS, JS and fonts all revalidate at the HTTP layer (`no-cache, must-revalidate`); no long-lived immutable URLs.
 
 ## Local use
 

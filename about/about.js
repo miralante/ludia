@@ -17,7 +17,7 @@
   }
 
   function apply(lang) {
-    i18n.set(lang);
+    document.documentElement.lang = lang;
     var nodes = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < nodes.length; i++) nodes[i].textContent = i18n.t(nodes[i].getAttribute('data-i18n'));
     document.title = i18n.t('about.pageTitle');
@@ -26,11 +26,11 @@
   window.LocalePicker = window.LocalePicker || {};
   window.LocalePicker.onChange = function (lang) {
     if (lang !== 'es' && lang !== 'en') return;
-    apply(lang);
     try { localStorage.setItem('ludia:locale', lang); } catch (_) {}
     var url = new URL(location.href);
     url.searchParams.set('lang', lang);
     history.replaceState(null, '', url);
+    apply(lang);
   };
 
   apply(detect());

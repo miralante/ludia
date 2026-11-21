@@ -95,7 +95,7 @@ Real screen-reader and learner review is still required beyond automated tests.
 cache/disk parity, public terminology, configuration, rules and lesson regressions.
 `node scripts/test-browser.cjs` is optional QA with an already available Playwright
 module specified by `PLAYWRIGHT_MODULE_PATH`. No product dependency or repository
-package install is needed. Serve 127.0.0.1:8099 before running it.
+package install is needed. Serve 127.0.0.1:8080 before running it.
 
 For metadata, edit app.config.json and run scripts/build-head.js and
 scripts/build-llms-txt.js. This is maintenance, not a build needed to run the app.

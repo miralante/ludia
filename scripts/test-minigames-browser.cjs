@@ -3,7 +3,7 @@
 const assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE_PATH || 'playwright');
 const M = require('../minigames.js'), C = require('../chess.js');
-const url = process.env.LUDIA_TEST_URL || 'http://127.0.0.1:8099/';
+const url = process.env.LUDIA_TEST_URL || 'http://127.0.0.1:8080/';
 // Language, text size and contrast now live in the gear drawer (the shared
 // accessibility component), so the browser checks drive it from there.
 async function setGear(page, { lang, size, contrast } = {}) {
@@ -64,7 +64,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
     await solve('rook-flag'); assert.equal((await progress()).minigames['rook-flag'], 'independent');
     assert.deepEqual((await progress()).lessons, ['board']);
     assert.equal((await progress()).exercises['rook-0'], 'independent');
-    console.log('✓ Small-board keyboard, goals, invalid moves, undo and old progress migration');
+    console.log('âœ“ Small-board keyboard, goals, invalid moves, undo and old progress migration');
     for (const challenge of M.catalog) {
       await go('minigame/' + challenge.id);
       if (await page.locator('[data-mini-next]').count()) await act('mini-restart').click();
@@ -73,7 +73,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
       await page.locator('[data-mini-next]').waitFor();
     }
     assert.equal(Object.keys((await progress()).minigames).length, 12);
-    console.log('✓ All 12 mini-games, captures, sequential flags and king protection');
+    console.log('âœ“ All 12 mini-games, captures, sequential flags and king protection');
     await go('minigame/bishop-path');
     await act('mini-restart').click();
     // Take a legal detour. The hint must adapt to the resulting position.
@@ -96,7 +96,7 @@ async function setGear(page, { lang, size, contrast } = {}) {
       if (!(await page.locator('[data-mini-next]').count())) assert.notEqual(await page.locator('.list-controls').getAttribute('open'), null);
     }
     await page.locator('[data-mini-next]').waitFor();
-    console.log('✓ Hints after detours, lesson return and large list controls');
+    console.log('âœ“ Hints after detours, lesson return and large list controls');
     const captures = process.env.LUDIA_SCREENSHOTS;
     if (captures) fs.mkdirSync(captures, { recursive: true });
     for (const lang of ['es', 'en']) {
@@ -129,9 +129,9 @@ async function setGear(page, { lang, size, contrast } = {}) {
     await page.locator('[data-mini-next]').waitFor(); await context.setOffline(false);
     await go('settings'); await act('delete-data').click(); await page.locator('#confirm-action').click();
     assert.equal(await page.evaluate(() => localStorage.getItem('ludia:progress')), null);
-    await go('minigames'); assert.equal(await page.locator('.lesson-state').filter({ hasText: /✓/ }).count(), 0);
+    await go('minigames'); assert.equal(await page.locator('.lesson-state').filter({ hasText: /âœ“/ }).count(), 0);
     await go('minigame/not-a-challenge'); assert.equal(await page.locator('.mini-group').count(), 3);
     assert.deepEqual(errors, []); assert.deepEqual(external, []);
-    console.log('✓ Responsive ES/EN, text/contrast/names, offline mini-game, reset and invalid route');
+    console.log('âœ“ Responsive ES/EN, text/contrast/names, offline mini-game, reset and invalid route');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

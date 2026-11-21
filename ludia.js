@@ -6,7 +6,7 @@
   let progress = storage.read('ludia-progress', {}), sessions = storage.read('ludia-sessions', {});
   if (!progress || typeof progress !== 'object' || Array.isArray(progress)) progress = {};
   if (!sessions || typeof sessions !== 'object' || Array.isArray(sessions)) sessions = {};
-  const locale = () => window.App.i18n.locale === 'en' ? 1 : 0;
+  const locale = () => window.App.i18n.locale() === 'en' ? 1 : 0;
   const tr = pair => Array.isArray(pair) ? pair[locale()] : String(pair || '');
   const esc = value => String(value).replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]));
   const t = (key, args = {}) => tr(window.LudiaCopy[key] || [key, key]).replace(/\{(\w+)\}/g, (_, k) => args[k] ?? k);

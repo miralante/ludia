@@ -75,25 +75,10 @@ guards it with a check. Calculia is the reference: the explanation carousel
 and the test sheet live in `assets/css/components.css` (`doc/en/design.md`
 §3.3–3.4), and `scripts/checks/design.js` (check 18) fails on a second copy.
 
-## Asset version tokens (`?v=`) — never hand-edit these
+## Asset cache policy (no `?v=` tokens)
 
-This project's `_headers` serves some assets as
-`Cache-Control: public, max-age=31536000, immutable`: one year, no
-revalidation. A changed asset only reaches a returning visitor if the
-URL referencing it changes, which is what `?v=` is for. The tokens used
-to be a hand-typed serial, so the same asset ended up with different
-tokens on different pages and a missed reference failed silently.
+Every asset is served `Cache-Control: no-cache, must-revalidate` (see `_headers`), so
+browsers revalidate on each request and a deploy is visible at once. Do not add
+`?v=` query strings to asset references. A changed cached file still needs the
+service worker `VERSION` bump (sw.js).
 
-The token is now a hash of the file's own bytes. Do not type one by hand:
-
-```bash
-node ../scripts/asset-tokens.js ludia           # rewrite
-node ../scripts/asset-tokens.js --check ludia   # verify
-```
-
-`scripts/check-version-bump.js` runs the check, so a stale token fails
-the pre-push gate with the exact value it expects. Which files are
-tokenised is read from this project's own `_headers` — see
-[../scripts/ASSET-TOKENS.md](../scripts/ASSET-TOKENS.md) for the
-per-project table and for why `*.js` also matches nested paths and why
-fonts are tokenised from CSS rather than from HTML.
