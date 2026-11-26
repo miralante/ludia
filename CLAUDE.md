@@ -1,18 +1,10 @@
 # Ludia — agent handbook
 
-## Shared Playwright installation
+## CI/CD and browser tests
 
-Playwright and its browsers are installed globally for the machine by
-`dev/setups/pc-playwright-first-setup.ps1` or
-`pc-playwright-next-setup.ps1`. Run the project's existing browser-test
-command (for example, `npm run test:ui`) or invoke the global CLI with
-`playwright test`.
-
-Do not add `playwright` or `@playwright/test` to project dependencies, install
-Playwright with `npm`/`npx`, or run `npx playwright install`. The setup scripts
-manage the shared browser cache under `{drive}\apps\playwright_browsers`.
-Always attempt the relevant browser test; if the global CLI or browsers are
-unavailable, report that blocker and continue with the other checks.
+Use this repository's configured test commands. See the
+[project CI/CD guide](CI-CD.md)
+for this project's Cloudflare deployment steps and the suite-wide test matrix.
 
 Ludia is an extensible catalogue of eight games with rules, exercises and matches.
 It includes the complete chess curriculum and engine. See
@@ -56,7 +48,7 @@ For chess, `data.js` defines lesson order, demonstration positions and exercises
 storage, translation and optional game sounds. `chess.js` is a pure rules engine,
 also loaded by Node tests. `app.js` renders hash routes and manages the journey.
 `sw.js` precaches the whole product and deletes only its own older caches in its scope.
-`CLOUDFLARE.md` is the deployment runbook. `doc/en/team.md` describes validation
+`CI-CD.md` is the deployment runbook. `doc/en/team.md` describes validation
 with learners and supporters; do not claim certified accessibility or learning gains.
 
 ## Shared components: one definition (suite-wide)

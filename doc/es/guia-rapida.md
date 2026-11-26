@@ -7,4 +7,4 @@
 
 La PWA necesita localhost o HTTPS. Visita una vez con conexión para guardar los
 archivos. En el navegador puedes instalarla. El dominio público previsto todavía
-requiere aprobación, provisión y despliegue; ver CLOUDFLARE.md.
+requiere aprobación, provisión y despliegue; ver CI-CD.md.

@@ -1,4 +1,12 @@
-# Cloudflare Workers (static assets) — Ludia
+# CI/CD and deployment — Ludia
+
+This is the project-specific CI/CD and Cloudflare deployment runbook. For the suite-wide test matrix, see the [Miralante CI/CD guide](https://github.com/miralante/apptonomia/blob/main/CI-CD.md).
+
+## CI validation
+
+Run the checks required by `.github/workflows/validate.yml` from this repository before merging. Project-specific checks and the suite-wide Playwright, crawler, service-worker, and release checks are listed in the linked CI/CD guide.
+
+## Cloudflare deployment profile — Ludia
 
 > **Deploy:** manual Wrangler deployment; Workers Builds is not connected. GitHub Actions validates commits but does not deploy, so each GitHub push requires a separate Wrangler deployment. The Cloudflare dashboard is the source of truth for project settings. This is a Worker with static assets, not classic Pages. Live at <https://ludia.apptonomia.uk/> (configured 2026-09-12).
 
@@ -33,7 +41,7 @@ Run `node scripts/check.js` and `node scripts/check-version-bump.js`; inspect th
 
 To add a custom domain, use **Workers & Pages → `ludia` → Custom domains → Set up a custom domain**. Cloudflare configures DNS for a zone in the account; otherwise follow the wizard's DNS instructions. Current setup: `ludia.apptonomia.uk` is set in `wrangler.toml`; no `workers.dev` fallback is documented.
 
-There are no API tokens or secrets to rotate. The GitHub integration uses OAuth; revoke access at [github.com/settings/applications](https://github.com/settings/applications).
+No Cloudflare API token or GitHub secret is configured for deployment. Wrangler authenticates interactively with the Cloudflare account when a maintainer runs `npx wrangler@4.129.1 login`; do not commit credentials.
 
 ## Project-specific notes
 
@@ -45,4 +53,4 @@ Initial publication and deployment were authorized and succeeded 2026-09-12 with
 - [`_headers`](_headers) — security and cache policy.
 - [`.github/workflows/validate.yml`](.github/workflows/validate.yml) — validation; it does not deploy unless stated above.
 - [`CLAUDE.md`](CLAUDE.md) — agent workflow and, where applicable, the canonical service-worker cache contract (§B.1).
-- [Miralante's shared Cloudflare runbook](https://github.com/miralante/apptonomia/blob/main/CLOUDFLARE.md) — common setup and recovery steps.
+- [Miralante's shared Cloudflare runbook](https://github.com/miralante/apptonomia/blob/main/CI-CD.md) — common setup and recovery steps.

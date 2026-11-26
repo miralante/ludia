@@ -7,4 +7,4 @@
 
 PWA installation requires localhost or HTTPS. Visit once while connected to cache
 the files. Use the browser’s installation option. The intended public domain still
-requires approval, provisioning and deployment; see CLOUDFLARE.md.
+requires approval, provisioning and deployment; see CI-CD.md.

@@ -99,7 +99,7 @@ package install is needed. Serve 127.0.0.1:8080 before running it.
 
 For metadata, edit app.config.json and run scripts/build-head.js and
 scripts/build-llms-txt.js. This is maintenance, not a build needed to run the app.
-See CLOUDFLARE.md for deployment and caching.
+See CI-CD.md for deployment and caching.
 
 ## Mini-games
 

@@ -161,7 +161,7 @@ Por rol y perfil, lo que más interesa es:
 | [`CONTRIBUTING.es.md`](CONTRIBUTING.es.md) | Familias, terapeutas y desarrolladores que quieran contribuir |
 | [`CODE_OF_CONDUCT.es.md`](CODE_OF_CONDUCT.es.md) | Pacto del colaborador (Contributor Covenant 2.1) |
 | `CLAUDE.md` | Agentes IA: reglas obligatorias y estado del proyecto |
-| [`CLOUDFLARE.md`](CLOUDFLARE.md) | Guía canónica de despliegue en Cloudflare Workers para Ludia |
+| [`CI-CD.md`](CI-CD.md) | Guía de despliegue en Cloudflare de este proyecto |
 | Historial del proyecto | En `git log`; no se mantiene una hoja de ruta externa |
 | `doc/es/i18n.md` / `doc/en/i18n.md` | Detalles del sistema multiidioma ES/EN |
 
@@ -226,15 +226,13 @@ ejecuta los `scripts/test-*-browser.cjs` y
 Ludia es un sitio totalmente estático (HTML/CSS/JS, sin paso de
 build), por lo que se envía directamente a
 **[Cloudflare Workers (static assets)](https://developers.cloudflare.com/workers/static-assets/)**
-mediante su integración nativa con GitHub. Las cabeceras de
+manualmente con Wrangler cuando pasa la validación de GitHub Actions; GitHub
+Actions no despliega. Las cabeceras de
 seguridad HTTP viven en [`_headers`](_headers), y la metadata
 del proyecto en [`wrangler.toml`](wrangler.toml). Ver
-[`CLOUDFLARE.md`](CLOUDFLARE.md) con la guía completa (rebuild,
-rollback, dominio personalizado, rotación de credenciales).
+[`CI-CD.md`](CI-CD.md) con la guía completa (despliegue, rollback y dominio personalizado).
 
-Las pull requests obtienen automáticamente una URL de
-previsualización en `ludia-<branch>.<account-subdomain>.workers.dev`
-— sin necesidad de un workflow extra.
+Workers Builds no está conectado a este repositorio, así que las pull requests no generan despliegues de previsualización automáticos en Cloudflare.
 
 ---
 

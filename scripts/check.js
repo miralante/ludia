@@ -20,7 +20,7 @@ for (const file of files) {
     catch (error) { failures.push(file + ': ' + String(error.stderr)); }
   }
 }
-const required = ['AGENTS.md', 'CLAUDE.md', 'README.md', 'README.es.md', 'LICENSE', 'CONTRIBUTING.md', 'CONTRIBUTING.es.md', 'CODE_OF_CONDUCT.md', 'CODE_OF_CONDUCT.es.md', 'SECURITY.md', 'SECURITY.es.md', 'CLOUDFLARE.md', '_headers', '.assetsignore', 'wrangler.toml', '404.html', 'index.html', 'app.js', 'data.js', 'chess.js', 'minigames.js', 'manifest.json', 'sw.js', 'scripts/check-version-bump.js', '.github/workflows/validate.yml', 'doc/en/index.md', 'doc/es/indice.md', 'llms.txt', 'robots.txt', 'sitemap.xml'];
+const required = ['AGENTS.md', 'CLAUDE.md', 'README.md', 'README.es.md', 'LICENSE', 'CONTRIBUTING.md', 'CONTRIBUTING.es.md', 'CODE_OF_CONDUCT.md', 'CODE_OF_CONDUCT.es.md', 'SECURITY.md', 'SECURITY.es.md', 'CI-CD.md', '_headers', '.assetsignore', 'wrangler.toml', '404.html', 'index.html', 'app.js', 'data.js', 'chess.js', 'minigames.js', 'manifest.json', 'sw.js', 'scripts/check-version-bump.js', '.github/workflows/validate.yml', 'doc/en/index.md', 'doc/es/indice.md', 'llms.txt', 'robots.txt', 'sitemap.xml'];
 required.forEach(file => check(exists(file), 'Missing ' + file));
 const dictionaries = {};
 /* strings files register nested tables; the checks work on dotted keys. */

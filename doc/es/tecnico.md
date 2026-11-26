@@ -99,7 +99,7 @@ por `PLAYWRIGHT_MODULE_PATH`; no es dependencia del producto ni requiere instala
 paquetes en este repositorio. Servir el sitio en 127.0.0.1:8080 antes de ejecutarlo.
 
 Cambios de metadatos: editar app.config.json y ejecutar scripts/build-head.js y
-scripts/build-llms-txt.js. No es un build para ejecutar la app. Ver CLOUDFLARE.md.
+scripts/build-llms-txt.js. No es un build para ejecutar la app. Ver CI-CD.md.
 
 ## Minijuegos
 

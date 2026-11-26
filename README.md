@@ -153,7 +153,7 @@ By role and profile, the most relevant docs are:
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Anyone who wants to contribute |
 | [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Contributor covenant (Contributor Covenant 2.1) |
 | `CLAUDE.md` | AI agents: operational workflow, coordination and approvals |
-| [`CLOUDFLARE.md`](CLOUDFLARE.md) | Canonical Cloudflare Workers deploy guide |
+| [`CI-CD.md`](CI-CD.md) | Project Cloudflare deployment guide |
 | Project history | Lives in `git log`; no external roadmap is maintained |
 | `doc/en/i18n.md` / `doc/es/i18n.md` | Details of the ES/EN multilanguage system |
 | [`doc/en/adding-games.md`](doc/en/adding-games.md) | How to add a new game to Ludia |
@@ -202,15 +202,14 @@ to confirm any cached-file change came with a `VERSION` bump in
 Ludia is a fully static site (HTML/CSS/JS, no build step), so it
 ships directly to **[Cloudflare Workers (static
 assets)](https://developers.cloudflare.com/workers/static-assets/)**
-through its built-in GitHub integration. The HTTP security headers
+manually with Wrangler after GitHub Actions validation passes; GitHub Actions
+does not deploy. The HTTP security headers
 live in [`_headers`](_headers), and the project metadata in
 [`wrangler.toml`](wrangler.toml). See
-[`CLOUDFLARE.md`](CLOUDFLARE.md) for the full runbook (rebuild,
-rollback, custom domain, credential rotation).
+[`CI-CD.md`](CI-CD.md) for the full runbook (deployment, rollback, and custom domain).
 
-Pull requests automatically get a preview URL on
-`ludia-<branch>.<account-subdomain>.workers.dev` — no extra
-workflow is needed.
+Cloudflare Workers Builds is not connected to this repository, so pull requests
+do not get automatic Cloudflare preview deployments.
 
 ---
 
