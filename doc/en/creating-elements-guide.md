@@ -10,3 +10,6 @@
 No rankings, streaks, artificial urgency or persuasion techniques. Motivation comes
 from learning a useful move and retaining control. New positions require checking
 that alternative valid answers are not incorrectly rejected.
+
+For the pedagogical principles shared across the suite, see
+Apptonomia's [canonical guide](https://github.com/miralante/apptonomia/blob/main/doc/en/creating-elements-guide.md).

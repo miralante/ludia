@@ -10,3 +10,6 @@
 No usar presión, rankings, rachas, urgencia artificial ni técnicas de persuasión.
 La motivación es aprender una jugada útil y tener control. Variar las posiciones
 requiere revisar que no existan respuestas alternativas válidas descartadas.
+
+Para los principios pedagógicos compartidos por la suite, consulta la
+[guía canónica de Apptonomia](https://github.com/miralante/apptonomia/blob/main/doc/es/guia-crear-elementos.md).
