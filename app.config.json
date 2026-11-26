@@ -16,7 +16,7 @@
   "manifest": "manifest.json",
   "dcCreator": "Ludia",
   "dcSubject": "Juegos de tablero y puzles con reglas, ejercicios y partidas.",
-  "dcRights": "MIT — ver LICENSE.",
+  "dcRights": "GNU AGPL v3.0 — ver LICENSE.",
   "dcType": "InteractiveResource",
   "faq": [
     {
@@ -56,5 +56,5 @@
       "description": "El portal de la suite."
     }
   ],
-  "llmsLicense": "MIT — ver LICENSE."
+  "llmsLicense": "GNU AGPL v3.0 — ver LICENSE."
 }

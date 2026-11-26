@@ -252,7 +252,7 @@ vulnerabilidad de forma privada.
 
 ## 📄 Licencia
 
-MIT — ver [`LICENSE`](LICENSE). Las fuentes Atkinson Hyperlegible
+GNU AGPL v3.0 — ver [`LICENSE`](LICENSE). Las fuentes Atkinson Hyperlegible
 y Nunito incluidas son propiedad de sus respectivos autores y se
 distribuyen bajo sus propias licencias.
 
