@@ -1,50 +1,48 @@
-# Ludia deployment
+# Cloudflare Workers (static assets) — Ludia
 
-Ludia uses Cloudflare Workers static assets, following the Apptonomia runbook
-at ../apptonomia/CLOUDFLARE.md. Configured custom domain:
-https://ludia.apptonomia.uk/ (live since 2026-09-12).
+> **Deploy:** manual Wrangler deployment; Workers Builds is not connected. GitHub Actions validates commits but does not deploy, so each GitHub push requires a separate Wrangler deployment. The Cloudflare dashboard is the source of truth for project settings. This is a Worker with static assets, not classic Pages. Live at <https://ludia.apptonomia.uk/> (configured 2026-09-12).
 
-1. Run `node scripts/check.js` and `node scripts/check-version-bump.js`.
-2. Review `.assetsignore`, `_headers`, `wrangler.toml` and the exact source diff.
-3. Repository: https://github.com/miralante/ludia (public, branch `main`).
-   Initial publication and deployment were authorized on 2026-09-12.
-4. This app currently uses manual Wrangler deployments. GitHub Actions validates
-   commits but does not deploy. Workers Builds is not connected; future pushes to
-   GitHub need a separate `wrangler deploy`. No framework or build step is required.
-5. Use `npx wrangler@4.129.1 login` to renew authentication, then
-   `npx wrangler@4.129.1 deploy --dry-run` and `npx wrangler@4.129.1 deploy`.
-   Wrangler is a deployment tool, not an application dependency. The custom domain
-   is declared in `wrangler.toml`; deploy provisions it in the account owning the zone.
-6. Verify the deployed origin in a fresh browser session: both languages, 320/375/768/desktop,
-   offline after first visit, local voice, install icons, promotions and data reset.
-7. Roll back via the previous Workers version when necessary. Increment the cache
-   version in a forward fix so returning devices receive the corrected assets.
+## Configuration
 
-## Cache contract
+| Setting | Value |
+|---|---|
+| Worker | `ludia` |
+| Production branch | `main` |
+| Framework preset | None |
+| Build command | none; no framework/build step |
+| Output / root | `.` / repository root |
+| GitHub workflow | [`.github/workflows/validate.yml`](.github/workflows/validate.yml) — `node scripts/check.js` and `node scripts/check-version-bump.js` |
 
-`sw.js` VERSION starts at `ludia-v1`. Bump it for every release changing a
-precache entry. Install fetches with cache:reload. A new worker waits for old tabs
-rather than replacing code during a game. Activation deletes only older caches
-of its own scope (`ludia-v*`, and the legacy `enroca-v*`). HTML, CSS, JS and fonts all revalidate at the HTTP layer (`no-cache, must-revalidate`); no long-lived immutable URLs.
+`wrangler.toml` is the deploy configuration: it pins the Worker name, serves `[assets] directory = "."` without a `main` script, and sets `not_found_handling = "404-page"`. Keep it; do not convert this project to classic Pages (`pages_build_output_dir` or `wrangler pages deploy`). Wrangler reads it for manual deployments. Use pinned Wrangler `4.129.1`; it is a deployment tool, not an app dependency. The custom domain is declared in `wrangler.toml` and provisioned by deployment in the account owning the zone.
 
-## Local use
+`_headers` applies security and cache headers at deploy time; no dashboard rules are needed. No environment variables or Cloudflare service-account keys are required. Before publishing, review `.assetsignore`, `_headers`, `wrangler.toml`, and the full source diff. Public repository: `https://github.com/miralante/ludia`, branch `main`.
 
-Open `index.html` directly, or run `python scripts/serve.py`
-in this directory. Direct-file use supports lessons, exercises, game and guarded
-storage; PWA installation and offline caching require HTTPS or localhost.
+## Routing and Workers.dev
 
-GitHub publication and its validation workflow succeeded on 2026-09-12.
-Production deployment succeeded on 2026-09-12 using Wrangler 4.129.1.
-Cloudflare version: `54c08d76-d01d-478c-b917-152f2d837081`.
-Runtime source: commit `a787bee`; subsequent publication-report changes are docs only.
-The 24 public assets were uploaded. Source-control files, docs and local tooling
-are excluded by `.assetsignore` and return 404 on the published origin.
+Cloudflare serves static Worker assets through an active `workers.dev` subdomain or custom domain. A deployment can succeed yet serve nothing without an active route. If a Worker shows **No active routes**, enable its Workers.dev subdomain under **Workers & Pages → `ludia` → Settings → Triggers**. If only a route table is available, add `*/*` on the account's `workers.dev` zone for Worker `ludia`. Routes are dashboard settings, not `wrangler.toml`; enabling one needs no rebuild. If a deployment is not active afterward, retry or promote the latest successful deployment.
 
-Published-origin Chromium QA passed: all 29 tasks in continuous topics, 12 mini-games, local/computer
-games, explicit promotion, keyboard, ES/EN, 320/375/768/1280 px, offline use and
-local data reset, silence by default and optional game sounds. Asset MIME types and
-exclusion of Git, local tooling and temporary QA files were checked. Last cache published under the old name: `enroca-v4`.
+The custom domain is declared in `wrangler.toml`; deployment provisions it in the Cloudflare account that owns the zone.
 
-On Windows, if Node cannot validate a certificate trusted by the operating system,
-run Wrangler with `$env:NODE_USE_SYSTEM_CA='1'` (supported by the tested Node 24).
-This uses the system trust store while retaining TLS certificate verification.
+## Cache and service worker
+
+`sw.js` starts at `ludia-v1`; bump for every release changing a precache entry. Install fetches with `cache:reload`. A new worker waits for old tabs rather than replacing code during a game. Activation removes only older `ludia-v*` and legacy `enroca-v*` caches. HTML, CSS, JS, and fonts use `no-cache, must-revalidate`; no long-lived immutable URLs. See `CLAUDE.md` §B.1.
+
+## Deploy, rollback, and domains
+
+Run `node scripts/check.js` and `node scripts/check-version-bump.js`; inspect the asset/config files and source diff. If needed, log in with `npx wrangler@4.129.1 login`, then run `npx wrangler@4.129.1 deploy --dry-run` and `npx wrangler@4.129.1 deploy`. Roll back to a previous Workers version; increment cache version in the forward fix.
+
+To add a custom domain, use **Workers & Pages → `ludia` → Custom domains → Set up a custom domain**. Cloudflare configures DNS for a zone in the account; otherwise follow the wizard's DNS instructions. Current setup: `ludia.apptonomia.uk` is set in `wrangler.toml`; no `workers.dev` fallback is documented.
+
+There are no API tokens or secrets to rotate. The GitHub integration uses OAuth; revoke access at [github.com/settings/applications](https://github.com/settings/applications).
+
+## Project-specific notes
+
+Initial publication and deployment were authorized and succeeded 2026-09-12 with Wrangler 4.129.1. Cloudflare version `54c08d76-d01d-478c-b917-152f2d837081` runs source commit `a787bee`; later publication-report changes are docs only. The deployment uploaded 24 public assets; `.assetsignore` excludes source-control files, docs, local tooling, and temporary QA files, which return 404. Published-origin Chromium QA passed 29 continuous-topic tasks, 12 mini-games, local/computer games, promotions, keyboard, ES/EN, 320/375/768/1280 px, offline use, local-data reset, default silence, and optional sounds; MIME types and exclusions were checked. The previously published cache name was `enroca-v4`. For local use, open `index.html` or run `python scripts/serve.py`; direct-file mode supports lessons, exercises, game, and guarded storage, while install/offline caching requires HTTPS or localhost. On Windows with Node 24, if OS-trusted certificates fail validation, set `$env:NODE_USE_SYSTEM_CA=1` for Wrangler; TLS verification stays enabled.
+
+## References
+
+- [`wrangler.toml`](wrangler.toml) — Worker and asset configuration.
+- [`_headers`](_headers) — security and cache policy.
+- [`.github/workflows/validate.yml`](.github/workflows/validate.yml) — validation; it does not deploy unless stated above.
+- [`CLAUDE.md`](CLAUDE.md) — agent workflow and, where applicable, the canonical service-worker cache contract (§B.1).
+- [Miralante's shared Cloudflare runbook](https://github.com/miralante/apptonomia/blob/main/CLOUDFLARE.md) — common setup and recovery steps.
