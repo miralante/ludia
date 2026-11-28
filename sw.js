@@ -2,7 +2,7 @@
    registration scope. The server copy wins while online; the cache answers
    only when the network is unreachable. */
 'use strict';
-var VERSION = 'ludia-v61';
+var VERSION = 'ludia-v65';
 var FILES = [
   "./",
   "./app.js",

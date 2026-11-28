@@ -3,7 +3,7 @@ window.App.i18n.register({
   "about": {
     "pageTitle": "Ludia — About the app",
     "heading": "About the app",
-    "backToCover": "← Back",
+    "backToCover": "Teclatlon menu",
     "tagline": "Adapted games, at your own pace.",
     "lead1": "Ludia is a ",
     "leadStrong": "web app of games with visual rules",
