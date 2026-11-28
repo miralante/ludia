@@ -13,7 +13,7 @@ con los mismos nombres. Este archivo es idéntico en los ocho proyectos.
 |---|---|---|---|
 | 👤 **Persona usuaria** | La persona que usa la app para aprender, practicar o resolver algo. La suite está pensada para lectura fácil. | Usa la app por su cuenta. No participa en el desarrollo. | La propia app — no hay nada más que leer |
 | ❤️ **Apoyo** | Familia, docente, terapeuta o cualquier persona que ayuda a la persona usuaria a elegir y usar la app, sin tomar sus decisiones por ella. | Elige la app o el contenido adecuado para una necesidad, la prepara para la persona usuaria e informa de problemas o de textos poco claros. | [`README.md`](README.md) |
-| 💻 **Construcción** | Desarrolladoras y mantenedoras que cambian el código, el contenido, las pruebas o el despliegue. | Edita el código, revisa las pull requests y despliega, siguiendo las reglas del proyecto. | [`CLAUDE.md`](CLAUDE.md), después [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+| 💻 **Construcción** | Desarrolladoras y mantenedoras que cambian el código, el contenido, las pruebas o el despliegue. | Edita el código, revisa las pull requests y despliega, siguiendo las reglas del proyecto. | [`CLAUDE.md`](../../CLAUDE.md), después [`CONTRIBUTING.md`](../../CONTRIBUTING.md) |
 
 > 💡 **La persona usuaria es el público.** Cada decisión sobre la interfaz,
 > los textos y la accesibilidad se toma pensando en su experiencia. Las
@@ -30,5 +30,5 @@ usar la app junto con la persona usuaria.
 |---|---|
 | 👤 Persona usuaria, o familiar que usa la app con ella | La app. No hay nada más que leer. |
 | ❤️ Apoyo | El [`README.md`](README.md) de la app |
-| 💻 Desarrolladora o mantenedora | [`CLAUDE.md`](CLAUDE.md), después [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+| 💻 Desarrolladora o mantenedora | [`CLAUDE.md`](../../CLAUDE.md), después [`CONTRIBUTING.md`](../../CONTRIBUTING.md) |
 | 🤔 Solo quieres entender qué es el proyecto | [`README.md`](README.md) |

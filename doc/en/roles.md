@@ -13,7 +13,7 @@ same names. This file is identical in all eight projects.
 |---|---|---|---|
 | 👤 **End user** | The person who uses the app to learn, practise or get things done. The suite is built for easy-read use. | Uses the app on their own. Does not take part in development. | The app itself — nothing else to read |
 | ❤️ **Support** | Family, teacher, therapist or any person who helps the end user choose and use the app, without taking its decisions for them. | Picks the right app or content for a need, sets it up for the end user, and reports problems or unclear wording. | [`README.md`](README.md) |
-| 💻 **Build** | Developers and maintainers who change the code, content, tests or deployment. | Edits the code, reviews pull requests and deploys, following the project's rules. | [`CLAUDE.md`](CLAUDE.md), then [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+| 💻 **Build** | Developers and maintainers who change the code, content, tests or deployment. | Edits the code, reviews pull requests and deploys, following the project's rules. | [`CLAUDE.md`](../../CLAUDE.md), then [`CONTRIBUTING.md`](../../CONTRIBUTING.md) |
 
 > 💡 **The end user is the audience.** Every decision about the interface,
 > the wording and the accessibility is taken with their experience in mind.
@@ -30,5 +30,5 @@ also use the app with the end user.
 |---|---|
 | 👤 End user, or a family member who uses the app with them | The app. Nothing else to read. |
 | ❤️ Support | The [`README.md`](README.md) of the app |
-| 💻 Developer or maintainer | [`CLAUDE.md`](CLAUDE.md), then [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+| 💻 Developer or maintainer | [`CLAUDE.md`](../../CLAUDE.md), then [`CONTRIBUTING.md`](../../CONTRIBUTING.md) |
 | 🤔 Only want to understand what the project is | [`README.md`](README.md) |
